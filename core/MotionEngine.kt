@@ -2,11 +2,13 @@ package core
 
 import agents.EnergyAgent
 import agents.PatternAgent
-import core.UserProfile
+import agents.TerrainAgent
 
 
 class MotionEngine(
+
     user: UserProfile
+
 ) {
 
 
@@ -14,7 +16,9 @@ class MotionEngine(
 
         PatternAgent(),
 
-        EnergyAgent(user)
+        EnergyAgent(user),
+
+        TerrainAgent()
 
     )
 
@@ -32,7 +36,9 @@ class MotionEngine(
 
 
         return AnalysisReport(
+
             results = results
+
         )
 
     }
