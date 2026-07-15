@@ -2,10 +2,23 @@ package tests
 
 import core.MotionEngine
 import core.MotionSnapshot
+import core.UserProfile
+
 
 fun main() {
 
+
+    val user = UserProfile(
+
+        weightKg = 74f,
+        heightCm = 169f,
+        age = 32
+
+    )
+
+
     val snapshot = MotionSnapshot(
+
         timestamp = System.currentTimeMillis(),
 
         steps = 15000,
@@ -17,20 +30,25 @@ fun main() {
 
         intensity = 0.7f,
         confidence = 0.96f
+
     )
 
 
-    val engine = MotionEngine()
-
-    val result = engine.analyze(
-        snapshot
-    )
+    val engine = MotionEngine(user)
 
 
-    println("MOTION ENGINE")
-    println("----------------")
-    println("Agent: PatternAgent")
-    println("Status: ${result.status}")
-    println("Change: ${result.activityChangePercent}%")
-    println(result.message)
+    val report =
+        engine.analyze(snapshot)
+
+
+    println("MOTION ENGINE REPORT")
+    println("--------------------")
+
+
+    report.results.forEach { result ->
+
+        println(result)
+
+    }
+
 }
