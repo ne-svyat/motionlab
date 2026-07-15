@@ -1,8 +1,9 @@
 package core
 
-interface Agent<T> {
+interface Agent {
 
     fun analyze(
         snapshot: MotionSnapshot
-    ): T
+    ): Any
+
 }

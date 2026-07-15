@@ -17,12 +17,12 @@ data class EnergyResult(
 
 class EnergyAgent(
     private val user: UserProfile
-) : Agent<EnergyResult> {
+) : Agent {
 
 
     override fun analyze(
         snapshot: MotionSnapshot
-    ): EnergyResult {
+    ): Any {
 
 
         val basal =
@@ -50,17 +50,14 @@ class EnergyAgent(
 
                 else ->
                     "HIGH"
-
             }
 
 
         return EnergyResult(
-
             basalCalories = basal,
             activeCalories = active,
             totalCalories = total,
             level = level
-
         )
     }
 }
