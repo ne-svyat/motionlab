@@ -8,13 +8,11 @@ class MotionEngine {
     private val patternAgent = PatternAgent()
 
     fun analyze(
-        snapshot: MotionSnapshot,
-        averageSteps: Int
+        snapshot: MotionSnapshot
     ): PatternResult {
 
         return patternAgent.analyze(
-            current = snapshot,
-            averageSteps = averageSteps
+            snapshot
         )
     }
 }

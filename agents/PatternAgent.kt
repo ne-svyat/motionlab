@@ -1,5 +1,6 @@
 package agents
 
+import core.Agent
 import core.MotionSnapshot
 
 data class PatternResult(
@@ -8,15 +9,17 @@ data class PatternResult(
     val message: String
 )
 
-class PatternAgent {
+class PatternAgent : Agent<PatternResult> {
 
-    fun analyze(
-        current: MotionSnapshot,
-        averageSteps: Int
+    private val averageSteps = 8000
+
+
+    override fun analyze(
+        snapshot: MotionSnapshot
     ): PatternResult {
 
         val change =
-            ((current.steps - averageSteps).toFloat()
+            ((snapshot.steps - averageSteps).toFloat()
                     / averageSteps) * 100f
 
 

@@ -23,8 +23,7 @@ fun main() {
     val engine = MotionEngine()
 
     val result = engine.analyze(
-        snapshot = snapshot,
-        averageSteps = 9000
+        snapshot
     )
 
 
