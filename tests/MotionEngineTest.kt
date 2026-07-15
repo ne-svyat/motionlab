@@ -1,5 +1,6 @@
 package tests
 
+import agents.DecisionAgent
 import core.CarryingProfile
 import core.MotionEngine
 import core.MotionSnapshot
@@ -62,5 +63,21 @@ fun main() {
         println(result)
 
     }
+
+
+    println()
+
+    println("DECISION")
+    println("--------------------")
+
+
+    val decisionAgent = DecisionAgent()
+
+
+    val decision =
+        decisionAgent.analyze(report)
+
+
+    println(decision)
 
 }
