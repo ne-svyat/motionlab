@@ -3,11 +3,13 @@ package core
 import agents.EnergyAgent
 import agents.PatternAgent
 import agents.TerrainAgent
+import agents.LoadAgent
 
 
 class MotionEngine(
 
-    user: UserProfile
+    user: UserProfile,
+    carrying: CarryingProfile
 
 ) {
 
@@ -18,7 +20,9 @@ class MotionEngine(
 
         EnergyAgent(user),
 
-        TerrainAgent()
+        TerrainAgent(),
+
+        LoadAgent(carrying)
 
     )
 

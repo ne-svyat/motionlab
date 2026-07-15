@@ -1,5 +1,6 @@
 package tests
 
+import core.CarryingProfile
 import core.MotionEngine
 import core.MotionSnapshot
 import core.UserProfile
@@ -17,28 +18,39 @@ fun main() {
     )
 
 
-    val snapshot = MotionSnapshot(
+    val carrying = CarryingProfile(
 
-        timestamp = System.currentTimeMillis(),
-
-        steps = 15000,
-        distanceMeters = 10000f,
-        speedKmh = 5.5f,
-
-        cadence = 112f,
-        stepLengthCm = 73f,
-
-        intensity = 0.7f,
-        confidence = 0.96f
+        backpackKg = 6.5f
 
     )
 
 
-    val engine = MotionEngine(user)
+    val snapshot = MotionSnapshot(
+
+        timestamp = System.currentTimeMillis(),
+
+        steps = 18000,
+        distanceMeters = 12000f,
+        speedKmh = 5.3f,
+
+        cadence = 110f,
+        stepLengthCm = 72f,
+
+        intensity = 0.75f,
+        confidence = 0.95f
+
+    )
 
 
-    val report =
-        engine.analyze(snapshot)
+    val engine = MotionEngine(
+
+        user,
+        carrying
+
+    )
+
+
+    val report = engine.analyze(snapshot)
 
 
     println("MOTION ENGINE REPORT")
