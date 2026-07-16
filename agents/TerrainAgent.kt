@@ -1,82 +1,80 @@
 package agents
 
 import core.Agent
+import core.AgentResult
 import core.MotionSnapshot
-
 
 data class TerrainResult(
 
+    override val agentName: String = "TerrainAgent",
+
+    override val confidence: Float,
+
+    override val timestamp: Long,
+
+    override val summary: String,
+
     val terrain: String,
+
     val difficulty: Int,
+
     val description: String
 
-)
+) : AgentResult
 
 
 class TerrainAgent : Agent {
 
-
     override fun analyze(
         snapshot: MotionSnapshot
-    ): Any {
-
+    ): AgentResult {
 
         val terrain =
             when {
 
                 snapshot.intensity > 0.8f ->
-                    "HARD_TERRAIN"
+                    "HARD_ACTIVITY"
 
-
-                snapshot.speedKmh < 3.5f &&
-                snapshot.intensity > 0.5f ->
-                    "SLOPE_OR_STAIRS"
-
+                snapshot.speedKmh > 6f ->
+                    "FAST_WALK"
 
                 else ->
                     "NORMAL_WALK"
-
             }
 
 
         val difficulty =
             when (terrain) {
 
-                "HARD_TERRAIN" ->
-                    9
+                "HARD_ACTIVITY" -> 8
 
-                "SLOPE_OR_STAIRS" ->
-                    7
+                "FAST_WALK" -> 5
 
-                else ->
-                    3
-
+                else -> 3
             }
 
 
         val description =
             when (terrain) {
 
-                "HARD_TERRAIN" ->
-                    "Высокая нагрузка: возможен сложный рельеф"
+                "HARD_ACTIVITY" ->
+                    "Высокая нагрузка движения"
 
-
-                "SLOPE_OR_STAIRS" ->
-                    "Медленное движение с нагрузкой: возможен подъём"
-
+                "FAST_WALK" ->
+                    "Быстрое движение"
 
                 else ->
                     "Обычное движение"
-
             }
 
 
         return TerrainResult(
-
+            confidence = 0.85f,
+            timestamp = System.currentTimeMillis(),
+            summary = description,
             terrain = terrain,
             difficulty = difficulty,
             description = description
-
         )
     }
 }

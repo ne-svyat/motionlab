@@ -4,6 +4,6 @@ interface Agent {
 
     fun analyze(
         snapshot: MotionSnapshot
-    ): Any
+    ): AgentResult
 
 }

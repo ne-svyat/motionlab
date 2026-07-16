@@ -1,36 +1,41 @@
 package agents
 
+import core.AgentResult
 import core.AnalysisReport
-
 
 data class DecisionResult(
 
+    override val agentName: String = "DecisionAgent",
+
+    override val confidence: Float,
+
+    override val timestamp: Long,
+
+    override val summary: String,
+
     val status: String,
+
     val score: Int,
+
     val message: String
 
-)
+) : AgentResult
 
 
 class DecisionAgent {
-
 
     fun analyze(
         report: AnalysisReport
     ): DecisionResult {
 
-
         var score = 0
 
-
-        var messageParts = mutableListOf<String>()
+        val messageParts = mutableListOf<String>()
 
 
         report.results.forEach { result ->
 
-
             when (result) {
-
 
                 is PatternResult -> {
 
@@ -41,9 +46,7 @@ class DecisionAgent {
                         messageParts.add(
                             "Высокая активность"
                         )
-
                     }
-
                 }
 
 
@@ -56,9 +59,7 @@ class DecisionAgent {
                         messageParts.add(
                             "Большой расход энергии"
                         )
-
                     }
-
                 }
 
 
@@ -72,9 +73,7 @@ class DecisionAgent {
                         messageParts.add(
                             "Дополнительная нагрузка"
                         )
-
                     }
-
                 }
 
 
@@ -87,13 +86,9 @@ class DecisionAgent {
                         messageParts.add(
                             "Сложный рельеф"
                         )
-
                     }
-
                 }
-
             }
-
         }
 
 
@@ -102,18 +97,21 @@ class DecisionAgent {
             score >= 70 ->
                 "HIGH_LOAD_DAY"
 
-
             score >= 40 ->
                 "MODERATE_LOAD_DAY"
 
-
             else ->
                 "NORMAL_DAY"
-
         }
 
 
         return DecisionResult(
+
+            confidence = 0.95f,
+
+            timestamp = System.currentTimeMillis(),
+
+            summary = status,
 
             status = status,
 
@@ -122,9 +120,6 @@ class DecisionAgent {
             message = messageParts.joinToString(
                 separator = ". "
             )
-
         )
-
     }
-
 }
